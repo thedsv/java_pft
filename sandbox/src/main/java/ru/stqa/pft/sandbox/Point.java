@@ -9,7 +9,13 @@ public class Point {
     this.y = y;
   }
 
-  public static double distance(Point p1, Point p2) {
-    return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+  /**
+   * Вычисление и вывод на экран расстояния между двумя точками на плоскости
+   * @param p1 - координаты первой точки
+   * @param p2 - координаты второй точки
+   */
+  public static void distance(Point p1, Point p2) {
+    double result = Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+    System.out.println("Расстояние между двумя точками с координатами (" + p1.x + "; " + p1.y + ") и (" + p2.x + " ;" + p2.y + ") = " + result);
   }
 }

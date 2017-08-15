@@ -6,9 +6,13 @@ public class MySecondProgram {
 
   public static void main(String[] args) {
     Point A = new Point(5, -3);
-    Point B = new Point(-7, 2);
+    Point B = new Point(-7, 2.3);
+    Point C = new Point(-3.5, 9);
+    Point D = new Point(0, 8);
 
-    System.out.println("Расстояние между двумя точками A(" + A.x + "; " + A.y + ") и B(" + B.x + " ;" + B.y + ") = " + distance(A, B));
+
+    distance(A,B);
+    distance(B,C);
+    distance(C,D);
   }
-
 }
