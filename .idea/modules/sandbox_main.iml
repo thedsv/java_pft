@@ -9,5 +9,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.testng:testng:6.11" level="project" />
+    <orderEntry type="library" name="Gradle: com.beust:jcommander:1.64" level="project" />
+    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.17" level="project" />
   </component>
 </module>
