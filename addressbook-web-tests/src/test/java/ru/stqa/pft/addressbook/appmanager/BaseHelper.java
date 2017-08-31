@@ -17,9 +17,11 @@ public class BaseHelper {
   }
 
   protected void type(By locator, String text) {
-    click(locator);
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(text);
+    if (text != null) {
+      click(locator);
+      wd.findElement(locator).clear();
+      wd.findElement(locator).sendKeys(text);
+    }
   }
 
   public boolean isAlertPresent() {
