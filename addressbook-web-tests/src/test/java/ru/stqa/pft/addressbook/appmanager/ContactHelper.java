@@ -2,11 +2,13 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends BaseHelper {
 
@@ -45,8 +47,8 @@ public class ContactHelper extends BaseHelper {
     click(By.linkText("add new"));
   }
 
-  public void selectContact() {
-    click(By.xpath("//tbody/tr[2]//input[@type='checkbox']"));
+  public void selectContact(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteSelectedContacts() {
@@ -57,8 +59,8 @@ public class ContactHelper extends BaseHelper {
     wd.switchTo().alert().accept();
   }
 
-  public void initContactModification() {
-    click(By.xpath("//tbody/tr[2]//img[@title='Edit']"));
+  public void initContactModification(int index) {
+    wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
   }
 
   public void submitContactModification() {
@@ -67,12 +69,30 @@ public class ContactHelper extends BaseHelper {
 
   public void createContact(ContactData contact) {
     initContactCreation();
-    fillContactForm(new ContactData("firstname", "lastname", "address", "homephone", "mobilephone", "workphone", "fax", "email1", "email2", "email3", "test1"), true);
+    fillContactForm(contact, true);
     submitContactCreation();
     returnToHomePage();
   }
 
   public boolean isThereAContact() {
     return isElementPresent(By.xpath("//tbody/tr[2]//input[@type='checkbox']"));
+  }
+
+  public List<ContactData> getContactList() {
+    List<ContactData> contacts = new ArrayList<>();
+    List<WebElement> elements = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
+    for (WebElement element : elements) {
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      List<WebElement> cells = element.findElements(By.tagName("td"));
+      String lastName = cells.get(1).getText();
+      String firstName = cells.get(2).getText();
+      String address = cells.get(3).getText();
+//      List<WebElement> emailCells = cells.get(4).findElements(TODO emails locator);
+//      List<WebElement> phoneCells = cells.get(5).findElements(TODO phones locator w/o fax);
+      ContactData contact = new ContactData(id, firstName, lastName, address, null, null, null, null, null, null, null, null);
+      contacts.add(contact);
+    }
+    return contacts;
+
   }
 }
