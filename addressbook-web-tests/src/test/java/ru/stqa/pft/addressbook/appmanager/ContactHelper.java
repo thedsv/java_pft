@@ -97,6 +97,10 @@ public class ContactHelper extends BaseHelper {
     return isElementPresent(By.xpath("//tbody/tr[2]//input[@type='checkbox']"));
   }
 
+  public int count() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+
   private Contacts contactCache = null;
 
   public Contacts all() {
