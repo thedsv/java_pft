@@ -1,0 +1,35 @@
+[
+  {
+    "firstName": "firstname 0",
+    "lastName": "lastname 0",
+    "address": "address 0",
+    "homePhone": "123450",
+    "mobilePhone": "654320",
+    "workPhone": "987650",
+    "email1": "email1_0@abc.ru",
+    "email2": "email2_0@cba.ru",
+    "email3": "email3_0@zxc.com"
+  },
+  {
+    "firstName": "firstname 1",
+    "lastName": "lastname 1",
+    "address": "address 1",
+    "homePhone": "123451",
+    "mobilePhone": "654321",
+    "workPhone": "987651",
+    "email1": "email1_1@abc.ru",
+    "email2": "email2_1@cba.ru",
+    "email3": "email3_1@zxc.com"
+  },
+  {
+    "firstName": "firstname 2",
+    "lastName": "lastname 2",
+    "address": "address 2",
+    "homePhone": "123452",
+    "mobilePhone": "654322",
+    "workPhone": "987652",
+    "email1": "email1_2@abc.ru",
+    "email2": "email2_2@cba.ru",
+    "email3": "email3_2@zxc.com"
+  }
+]
