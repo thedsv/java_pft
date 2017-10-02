@@ -47,7 +47,8 @@ public class GroupCreationTests extends TestBase {
         line = reader.readLine();
       }
       Gson gson = new Gson();
-      List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType()); // List<GroupData>.class
+      List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>() {
+      }.getType()); // List<GroupData>.class
       return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
   }
@@ -62,7 +63,6 @@ public class GroupCreationTests extends TestBase {
     Groups after = app.group().all();
     assertThat(after, equalTo(
             before.withAdded(group.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt()))));
-
   }
 
   @Test
