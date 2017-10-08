@@ -12,6 +12,8 @@ dependencies {
     compile 'com.thoughtworks.xstream:xstream-distribution:1.4.10'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile 'mysql:mysql-connector-java:8.0.8-dmr'
+    compile 'org.hibernate:hibernate-core:5.2.11.Final'
 }
 
 task testGroups(type: Test) {
