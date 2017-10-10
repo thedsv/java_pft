@@ -7,6 +7,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -28,22 +30,22 @@ public class ContactData {
   @Expose
   @Column(name = "address")
   @Type(type = "text")
-  private String address;
+  private String address = "";
 
   @Expose
   @Column(name = "home")
   @Type(type = "text")
-  private String homePhone;
+  private String homePhone = "";
 
   @Expose
   @Column(name = "mobile")
   @Type(type = "text")
-  private String mobilePhone;
+  private String mobilePhone = "";
 
   @Expose
   @Column(name = "work")
   @Type(type = "text")
-  private String workPhone;
+  private String workPhone = "";
 
   @Transient
   private String allPhones;
@@ -55,17 +57,17 @@ public class ContactData {
   @Expose
   @Column(name = "email")
   @Type(type = "text")
-  private String email1;
+  private String email1 = "";
 
   @Expose
   @Column(name = "email2")
   @Type(type = "text")
-  private String email2;
+  private String email2 = "";
 
   @Expose
   @Column(name = "email3")
   @Type(type = "text")
-  private String email3;
+  private String email3 = "";
 
   @Transient
   private String allEmails;
@@ -75,8 +77,10 @@ public class ContactData {
   @Type(type = "text")
   private String photo;
 
-  @Transient
-  private String group;
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<>();
 
   public ContactData withId(int id) {
     this.id = id;
@@ -148,11 +152,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public int getId() {
     return id;
   }
@@ -204,15 +203,16 @@ public class ContactData {
   public File getPhoto() {
     if (photo != null) {
       return new File(photo);
-    } return null;
-  }
-
-  public String getGroup() {
-    return group;
+    }
+    return null;
   }
 
   public String getWorkPhone() {
     return workPhone;
+  }
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   @Override
@@ -261,14 +261,15 @@ public class ContactData {
             ", homePhone='" + homePhone + '\'' +
             ", mobilePhone='" + mobilePhone + '\'' +
             ", workPhone='" + workPhone + '\'' +
-            ", allPhones='" + allPhones + '\'' +
             ", fax='" + fax + '\'' +
             ", email1='" + email1 + '\'' +
             ", email2='" + email2 + '\'' +
             ", email3='" + email3 + '\'' +
-            ", allEmails='" + allEmails + '\'' +
-            ", photo='" + photo + '\'' +
-            ", group='" + group + '\'' +
             '}';
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 }

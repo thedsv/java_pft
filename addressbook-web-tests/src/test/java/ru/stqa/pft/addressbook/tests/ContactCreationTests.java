@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -53,16 +54,28 @@ public class ContactCreationTests extends TestBase {
   }
 
   @Test(dataProvider = "validContactsFromJson")
-  public void testContactCreation(ContactData contact) {
-    app.goTo().homePage();
-    Contacts before = app.db().contacts();
+  public void testContactCreationWithProvider(ContactData contact) {
+    Groups groups = app.db().groups();
     File photo = new File("src/test/resources/stru.jpg");
 
-/*    ContactData contact = new ContactData()
-            .withLastName("Иванов").withFirstName("Иван").withAddress("г. Москва, ул. Победы, д.10, кв.15")
-            .withHomePhone("23-44-22").withMobilePhone("+7(999) 233-33-22").withWorkPhone("33 14 55")
-            .withEmail1("email1@abc.ru").withEmail2("email2@cba.ru").withEmail3("email3@zxc.com").withGroup("test1").withPhoto(photo);
-*/
+    app.goTo().homePage();
+    Contacts before = app.db().contacts();
+
+    app.contact().create(contact);
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
+    Contacts after = app.db().contacts();
+    assertThat(after, equalTo(
+            before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
+    verifyContactListInUI();
+  }
+
+  @Test
+  public void testContactCreationWithoutProvider() {
+    Groups groups = app.db().groups();
+    File photo = new File("src/test/resources/stru.jpg");
+    ContactData contact = new ContactData().withFirstName("test_name").withLastName("test_surname").withPhoto(photo).inGroup(groups.iterator().next());
+    app.goTo().homePage();
+    Contacts before = app.db().contacts();
     app.contact().create(contact);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.db().contacts();
