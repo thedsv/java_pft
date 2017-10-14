@@ -141,4 +141,11 @@ public class ContactHelper extends BaseHelper {
             .withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone)
             .withEmail1(email1).withEmail2(email2).withEmail3(email3);
   }
+
+  public void addToGroup(String groupName) {
+    click(By.name("to_group"));
+    click(By.xpath(String.format("//select[@name='to_group']/option[text()='%s']", groupName)));
+    click(By.name("add"));
+  }
 }
+
