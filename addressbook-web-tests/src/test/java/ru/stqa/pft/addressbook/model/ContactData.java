@@ -256,6 +256,11 @@ public class ContactData {
     return this;
   }
 
+  public ContactData outOfGroup(GroupData group) {
+    groups.remove(group);
+    return this;
+  }
+
   @Override
   public String toString() {
     return "ContactData{" +

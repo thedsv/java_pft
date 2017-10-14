@@ -142,10 +142,22 @@ public class ContactHelper extends BaseHelper {
             .withEmail1(email1).withEmail2(email2).withEmail3(email3);
   }
 
-  public void addToGroup(String groupName) {
+  public void addToGroup(int contactId, String groupName) {
+    selectContactById(contactId);
     click(By.name("to_group"));
     click(By.xpath(String.format("//select[@name='to_group']/option[text()='%s']", groupName)));
     click(By.name("add"));
+  }
+
+  public void selectGroupByName(String groupName) {
+    click(By.name("group"));
+    click(By.xpath(String.format("//select[@name='group']/option[text()='%s']", groupName)));
+  }
+
+  public void removeContactFromGroup(int contactId, String groupName) {
+    selectGroupByName(groupName);
+    selectContactById(contactId);
+    click(By.name("remove"));
   }
 }
 
