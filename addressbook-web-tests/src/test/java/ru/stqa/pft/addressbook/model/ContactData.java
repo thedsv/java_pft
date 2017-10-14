@@ -251,6 +251,11 @@ public class ContactData {
     return result;
   }
 
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
+
   @Override
   public String toString() {
     return "ContactData{" +
@@ -265,11 +270,7 @@ public class ContactData {
             ", email1='" + email1 + '\'' +
             ", email2='" + email2 + '\'' +
             ", email3='" + email3 + '\'' +
+            ", groups=" + groups +
             '}';
-  }
-
-  public ContactData inGroup(GroupData group) {
-    groups.add(group);
-    return this;
   }
 }
