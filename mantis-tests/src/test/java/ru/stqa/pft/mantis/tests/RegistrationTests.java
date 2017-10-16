@@ -7,7 +7,10 @@ import ru.stqa.pft.mantis.model.MailMessage;
 import ru.stqa.pft.mantis.model.UserData;
 
 import javax.mail.MessagingException;
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
@@ -15,8 +18,9 @@ import static org.testng.Assert.assertTrue;
 public class RegistrationTests extends TestBase {
 
   @BeforeMethod
-  public void startMailServer() {
-    app.mail().start();
+  public void init() throws RemoteException, ServiceException, MalformedURLException {
+    skipIfNotFixed(0000001);
+    startMailServer();
   }
 
   @Test
@@ -28,6 +32,10 @@ public class RegistrationTests extends TestBase {
     String confirmationLink = app.mail().findConfirmationLink(mailMessages, user.getEmail());
     app.registration().finish(confirmationLink, user.getPassword());
     assertTrue(app.newSession().login(user.getName(), user.getPassword()));
+  }
+
+  public void startMailServer() {
+    app.mail().start();
   }
 
   @AfterMethod(alwaysRun = true)
