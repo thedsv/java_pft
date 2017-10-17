@@ -1,8 +1,9 @@
-package ru.stqa.pft.addressbook.appmanager;
+package ru.stqa.pft.addressbook.bugtracker.mantis.appmanager;
 
 import biz.futureware.mantis.rpc.soap.client.*;
-import ru.stqa.pft.addressbook.model.MantisIssue;
-import ru.stqa.pft.addressbook.model.MantisProject;
+import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.bugtracker.mantis.model.MantisIssue;
+import ru.stqa.pft.addressbook.bugtracker.mantis.model.MantisProject;
 
 import javax.xml.rpc.ServiceException;
 import java.math.BigInteger;

@@ -15,6 +15,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import javax.xml.rpc.ServiceException;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
@@ -73,14 +74,28 @@ public class TestBase {
     }
   }
 
-  public boolean isIssueOpen(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+  public boolean isMantisIssueOpen(int issueId) throws RemoteException, ServiceException, MalformedURLException {
     String issueStatus = app.mantis().getIssueStatus(issueId);
     return !issueStatus.equals("resolved") && !issueStatus.equals("closed");
   }
 
-  public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
-    if (isIssueOpen(issueId)) {
-      throw new SkipException("Ignored because of issue " + issueId);
+  private boolean isBugifyIssueOpen(int issueId) throws IOException {
+    String issueStatus = app.bugify().getIssueStatus(issueId);
+    return !issueStatus.equals("Resolved") && !issueStatus.equals("Closed");
+  }
+
+  public void skipIfNotFixed(String bugtracker, int issueId) throws IOException, ServiceException {
+    switch (bugtracker) {
+      case "mantis":
+        if (isMantisIssueOpen(issueId)) {
+          throw new SkipException("Ignored because of MantisBT issue " + issueId);
+        }
+        break;
+      case "bugify":
+        if (isBugifyIssueOpen(issueId)) {
+          throw new SkipException("Ignored because of Bugify issue " + issueId);
+        }
+        break;
     }
   }
 }

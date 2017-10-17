@@ -6,6 +6,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import ru.stqa.pft.addressbook.bugtracker.bugify.appmanager.BugifyHelper;
+import ru.stqa.pft.addressbook.bugtracker.mantis.appmanager.MantisHelper;
 
 import java.io.File;
 import java.io.FileReader;
@@ -24,6 +26,7 @@ public class ApplicationManager {
   private String browser;
   private DbHelper dbHelper;
   private MantisHelper mantisHelper;
+  private BugifyHelper bugifyHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -77,5 +80,12 @@ public class ApplicationManager {
       mantisHelper = new MantisHelper(this);
     }
     return mantisHelper;
+  }
+
+  public BugifyHelper bugify() {
+    if (bugifyHelper == null) {
+      bugifyHelper = new BugifyHelper(this);
+    }
+    return bugifyHelper;
   }
 }
