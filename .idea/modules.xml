@@ -8,6 +8,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mantis-tests.iml" filepath="$PROJECT_DIR$/.idea/modules/mantis-tests.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mantis-tests_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mantis-tests_main.iml" group="mantis-tests" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mantis-tests_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mantis-tests_test.iml" group="mantis-tests" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest-sample.iml" filepath="$PROJECT_DIR$/.idea/modules/rest-sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest-sample_main.iml" filepath="$PROJECT_DIR$/.idea/modules/rest-sample_main.iml" group="rest-sample" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest-sample_test.iml" filepath="$PROJECT_DIR$/.idea/modules/rest-sample_test.iml" group="rest-sample" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox_main.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox_main.iml" group="sandbox" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox_test.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox_test.iml" group="sandbox" />

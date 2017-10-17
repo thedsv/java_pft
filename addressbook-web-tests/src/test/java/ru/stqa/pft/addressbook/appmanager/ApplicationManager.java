@@ -14,7 +14,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-  private final Properties properties;
+  public final Properties properties;
   WebDriver wd;
 
   private SessionHelper sessionHelper;
@@ -23,6 +23,7 @@ public class ApplicationManager {
   private GroupHelper groupHelper;
   private String browser;
   private DbHelper dbHelper;
+  private MantisHelper mantisHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -69,5 +70,12 @@ public class ApplicationManager {
 
   public DbHelper db() {
     return dbHelper;
+  }
+
+  public MantisHelper mantis() {
+    if (mantisHelper == null) {
+      mantisHelper = new MantisHelper(this);
+    }
+    return mantisHelper;
   }
 }

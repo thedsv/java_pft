@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -13,7 +14,10 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import javax.xml.rpc.ServiceException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -66,6 +70,17 @@ public class TestBase {
                       .withAllEmails(c.getEmail1() + "\n" + c.getEmail2() + "\n" + c.getEmail3())
                       .withAllPhones(c.getHomePhone() + "\n" + c.getMobilePhone() + "\n" + c.getWorkPhone()))
               .collect(Collectors.toSet())));
+    }
+  }
+
+  public boolean isIssueOpen(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+    String issueStatus = app.mantis().getIssueStatus(issueId);
+    return !issueStatus.equals("resolved") && !issueStatus.equals("closed");
+  }
+
+  public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+    if (isIssueOpen(issueId)) {
+      throw new SkipException("Ignored because of issue " + issueId);
     }
   }
 }
